@@ -8,6 +8,7 @@
 - Favorite articles
 - Follow other users
 
+* I hard coded the api response, so when you are doing add, edit, delete, follow/unfollow etc, the value won't update, because it will refetch from the hard coded api response.
 
 ## Usage
 
