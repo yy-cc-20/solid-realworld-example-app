@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { user, setUser } from '../stores/userStore';
-import { User, LoginRequest, RegistrationRequest } from '../interfaces';
+import { user, setUser } from '../globalStates/currentUser';
+import { User, LoginRequest, RegistrationRequest } from '../types';
 
 export async function login(request: LoginRequest) {
     const apiUrl = import.meta.env.VITE_API_URL + '/users/login';

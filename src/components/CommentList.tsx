@@ -1,7 +1,7 @@
 import { For, Show, type Component } from 'solid-js';
 import { formatDate, nameToSlug } from '../utils';
-import type { CommentList } from '../interfaces';
-import { user } from '../stores/userStore';
+import type { CommentList } from '../types';
+import { user } from '../globalStates/currentUser';
 import { isAuthenticated } from '../services/authService';
 import { deleteComment } from '../services/commentService';
 
@@ -14,11 +14,13 @@ interface CommentListProps {
 const CommentList: Component<CommentListProps> = (props) => {
     function handleDeleteComment(slug: string, id: number) {
         if (confirm('Are you sure you want to delete this comment?')) {
-            deleteComment(slug, id).then(() => {
-                props.onDelete();
-            }).catch((error) => {
-                alert('Error deleting comment, please try again');
-            });
+            deleteComment(slug, id)
+                .then(() => {
+                    props.onDelete();
+                })
+                .catch((error) => {
+                    alert('Error deleting comment, please try again');
+                });
         }
     }
 
@@ -40,7 +42,7 @@ const CommentList: Component<CommentListProps> = (props) => {
                         <span class='date-posted'>{formatDate(comment.createdAt)}</span>
                         <Show when={isAuthenticated() && comment.author.username === user.username}>
                             <button class='btn btn-sm btn-outline-danger' onClick={() => handleDeleteComment(props.slug, comment.id)}>
-                            <i class='ion-trash-a'></i>
+                                <i class='ion-trash-a'></i>
                             </button>
                         </Show>
                     </div>

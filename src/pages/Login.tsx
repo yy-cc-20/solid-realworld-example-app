@@ -1,7 +1,8 @@
 import { createSignal, onMount, Show, type Component } from 'solid-js';
-import { LoginRequest } from '../interfaces';
-import { isAuthenticated, login } from '../services/authService';
+import { LoginRequest } from '../types';
+import { login } from '../services/authService';
 import { useNavigate } from '@solidjs/router';
+import Routes from '../routes';
 
 const Login: Component = () => {
     const navigate = useNavigate();
@@ -14,9 +15,7 @@ const Login: Component = () => {
     const [errorMessage, setErrorMessage] = createSignal('');
 
     onMount(() => {
-        if (isAuthenticated()) {
-            navigate('/');
-        }
+        Routes.AuthRoute();
     });
 
     function handleInputChange(event: Event) {
@@ -39,7 +38,7 @@ const Login: Component = () => {
 
     function handleSubmit(event: Event) {
         event.preventDefault();
-        if (validateForm() == false) {
+        if (validateForm() === false) {
             setErrorMessage('Please fill out all fields correctly.');
             return;
         }

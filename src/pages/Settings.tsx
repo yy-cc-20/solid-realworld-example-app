@@ -1,8 +1,9 @@
 import { createSignal, onMount, Show, type Component } from 'solid-js';
-import { UpdateUserRequest } from '../interfaces';
+import { UpdateUserRequest } from '../types';
 import { useNavigate } from '@solidjs/router';
-import { getCurrentUser, isAuthenticated, logout } from '../services/authService';
+import { getCurrentUser, logout } from '../services/authService';
 import { updateUser } from '../services/userService';
+import Routes from '../routes';
 
 const Settings: Component = () => {
     const navigate = useNavigate();
@@ -18,9 +19,7 @@ const Settings: Component = () => {
     const [errorMessage, setErrorMessage] = createSignal('');
 
     onMount(() => {
-        if (!isAuthenticated()) {
-            navigate('/login');
-        }
+        Routes.ProtectedRoute();
         getUserDataForEditing();
     });
 
@@ -53,7 +52,7 @@ const Settings: Component = () => {
 
     function handleSubmit(event: Event) {
         event.preventDefault();
-        if (validateForm() == false) {
+        if (validateForm() === false) {
             return;
         }
         updateUser(formData())

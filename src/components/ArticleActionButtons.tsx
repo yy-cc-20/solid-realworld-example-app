@@ -2,11 +2,11 @@ import { Show, type Component } from 'solid-js';
 import { formatDate, nameToSlug } from '../utils';
 import FavouriteUnfavouriteButton from './FavouriteUnfavouriteButton';
 import { isAuthenticated } from '../services/authService';
-import { user } from '../stores/userStore';
+import { user } from '../globalStates/currentUser';
 import FollowUnfollowButton from './FollowUnfollowButton';
 import { useNavigate } from '@solidjs/router';
 import { deleteArticle } from '../services/articleService';
-import { Article } from '../interfaces';
+import { Article } from '../types';
 
 interface ArticleActionButtonsProps {
     article: Article;
@@ -42,7 +42,7 @@ export const ArticleActionButtons: Component<ArticleActionButtonsProps> = (props
                 &nbsp; {isAuthenticated() && props.article.favorited ? 'Favourited' : 'Favorite Post'}
                 <span class='counter'>({props.article.favoritesCount})</span>
             </FavouriteUnfavouriteButton>
-            <Show when={isAuthenticated() && props.article.author.username == user.username}>
+            <Show when={isAuthenticated() && props.article.author.username === user.username}>
                 <button class='btn btn-sm btn-outline-secondary' onClick={() => navigate('/editor/' + props.article.slug)}>
                     <i class='ion-edit'></i> Edit Article
                 </button>

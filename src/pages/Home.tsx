@@ -11,7 +11,7 @@ import { createResource, createSignal, For, onMount, Show, type Component } from
 import { A } from '@solidjs/router';
 import { ArticleList } from '../components';
 import getTagList from '../services/tagService';
-import type { ArticleFilter } from '../interfaces';
+import type { ArticleFilter } from '../types';
 import { isAuthenticated } from '../services/authService';
 
 const Home: Component = () => {

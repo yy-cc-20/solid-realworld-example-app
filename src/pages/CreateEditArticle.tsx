@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from '@solidjs/router';
 import { createEffect, createSignal, onMount, Show, type Component } from 'solid-js';
-import { isAuthenticated } from '../services/authService';
-import { CreateArticleRequest } from '../interfaces';
+import { CreateArticleRequest } from '../types';
 import { createArticle, getArticleDetail } from '../services/articleService';
 import { nameToSlug } from '../utils';
+import Routes from '../routes';
 
 const CreateEditArticle: Component = () => {
     const params = useParams();
@@ -19,9 +19,7 @@ const CreateEditArticle: Component = () => {
     const [errorMessage, setErrorMessage] = createSignal('');
 
     onMount(() => {
-        if (!isAuthenticated()) {
-            navigate('/login');
-        }
+        Routes.ProtectedRoute();
 
         createEffect(() => {
             setErrorMessage('');
@@ -64,7 +62,7 @@ const CreateEditArticle: Component = () => {
 
     function handleSubmit(event: Event) {
         event.preventDefault();
-        if (validateForm() == false) {
+        if (validateForm() === false) {
             setErrorMessage('Please fill out all fields correctly.');
             return;
         }
@@ -147,5 +145,4 @@ const CreateEditArticle: Component = () => {
         </>
     );
 };
-
 export default CreateEditArticle;

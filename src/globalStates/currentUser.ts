@@ -1,7 +1,7 @@
 // create a global state using a singleton module export
 
 import { createStore } from 'solid-js/store';
-import { User } from '../interfaces';
+import { User } from '../types';
 
 const unauthenticatedUser: User = {
     email: '',

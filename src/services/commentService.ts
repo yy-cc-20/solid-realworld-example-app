@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CreateCommentRequest } from '../interfaces';
+import { CreateCommentRequest } from '../types';
 import { authHeader } from './authService';
 
 export async function addCommentToAnArticle(slug: string, comment: CreateCommentRequest) {

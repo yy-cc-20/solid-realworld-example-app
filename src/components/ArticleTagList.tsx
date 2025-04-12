@@ -1,5 +1,5 @@
 import { For, type Component } from 'solid-js';
-import { Tags } from '../interfaces';
+import { Tags } from '../types';
 
 interface ArticleTagListProps {
     tagList: Tags;

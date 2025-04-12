@@ -13,7 +13,7 @@
 
 import { Show, type Component } from 'solid-js';
 import { A } from '@solidjs/router';
-import { user } from '../stores/userStore';
+import { user } from '../globalStates/currentUser';
 import { isAuthenticated } from '../services/authService';
 import { nameToSlug } from '../utils';
 
@@ -31,7 +31,7 @@ const Header: Component = () => {
                         </A>
                     </li>
 
-                    <Show when={isAuthenticated() == false}>
+                    <Show when={isAuthenticated() === false}>
                         <li class='nav-item'>
                             <A activeClass='active' class='nav-link' href='/login'>
                                 Sign in

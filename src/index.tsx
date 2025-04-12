@@ -1,5 +1,5 @@
 /* @refresh reload */
-import { render } from 'solid-js/web';
+import { ErrorBoundary, render } from 'solid-js/web';
 import { Router } from '@solidjs/router';
 import Routes from './routes';
 import Layout from './components/Layout';
@@ -12,11 +12,13 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 
 render(
     () => (
-        <Router root={Layout}>
-            <>{Routes.AuthRoutes}</>
-            <>{Routes.ProtectedRoutes}</>
-            <>{Routes.PublicAccessRoutes}</>
-        </Router>
+        <ErrorBoundary fallback={(err) => (import.meta.env.VITE_DEBUG_MODE ? err.message : 'Opps.. An error occurred. Please try again later.')}>
+            <Router root={Layout}>
+                <>{Routes.AuthRoutes}</>
+                <>{Routes.ProtectedRoutes}</>
+                <>{Routes.PublicAccessRoutes}</>
+            </Router>
+        </ErrorBoundary>
     ),
     root!,
 );

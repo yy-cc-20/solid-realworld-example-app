@@ -1,6 +1,6 @@
 import { createSignal, Show, type Component } from 'solid-js';
-import { user } from '../stores/userStore';
-import { CreateCommentRequest } from '../interfaces';
+import { user } from '../globalStates/currentUser';
+import { CreateCommentRequest } from '../types';
 import { isAuthenticated } from '../services/authService';
 import { addCommentToAnArticle } from '../services/commentService';
 
@@ -42,7 +42,7 @@ const CreateCommentForm: Component<CreateCommentFormProps> = (props) => {
             alert('Please login to continue');
             return;
         }
-        if (validateForm() == false) {
+        if (validateForm() === false) {
             return;
         }
         addCommentToAnArticle(props.slug, formData())

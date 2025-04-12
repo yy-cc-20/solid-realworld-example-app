@@ -1,6 +1,6 @@
 import type { Component } from 'solid-js';
 import ArticleTagList from './ArticleTagList';
-import type { Article } from '../interfaces';
+import type { Article } from '../types';
 
 interface ArticleProps {
     article: Article;

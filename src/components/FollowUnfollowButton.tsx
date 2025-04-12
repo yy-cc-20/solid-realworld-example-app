@@ -1,8 +1,8 @@
 import { JSX, type Component } from 'solid-js';
 import { toggleFollowUser } from '../services/profileService';
-import { Profile } from '../interfaces';
+import { Profile } from '../types';
 import { isAuthenticated } from '../services/authService';
-import { user } from '../stores/userStore';
+import { user } from '../globalStates/currentUser';
 
 interface FollowUnfollowButtonProps {
     children?: JSX.Element;

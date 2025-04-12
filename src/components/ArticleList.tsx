@@ -1,7 +1,7 @@
 import { Accessor, createMemo, createResource, createSignal, For, type Component } from 'solid-js';
-import type { ArticleList } from '../interfaces';
+import type { ArticleList } from '../types';
 import { formatDate, nameToSlug } from '../utils';
-import type { ArticleFilter, Pagination } from '../interfaces';
+import type { ArticleFilter, Pagination } from '../types';
 import { getArticleList } from '../services/articleService';
 import FavouriteUnfavouriteButton from './FavouriteUnfavouriteButton';
 import ArticleTagList from './ArticleTagList';

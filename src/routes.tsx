@@ -1,4 +1,6 @@
+import { Navigate } from '@solidjs/router';
 import { lazy } from 'solid-js';
+import { isAuthenticated } from './services/authService';
 
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
@@ -6,12 +8,29 @@ const Register = lazy(() => import('./pages/Register'));
 const CreateEditArticle = lazy(() => import('./pages/CreateEditArticle'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Settings = lazy(() => import('./pages/Settings'));
-const Article = lazy(() => import('./pages/Article'));
+const ArticleDetails = lazy(() => import('./pages/ArticleDetails'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+function ProtectedRoute() {
+    if (!isAuthenticated()) {
+        <Navigate href='/login' />;
+    }
+}
+
+function AuthRoute() {
+    if (isAuthenticated()) {
+        <Navigate href='/' />;
+    }
+}
 
 const PublicAccessRoutes = [
     {
         path: '/',
         component: Home,
+    },
+    {
+        path: '*',
+        component: NotFound,
     },
 ];
 
@@ -30,7 +49,7 @@ const ProtectedRoutes = [
     },
     {
         path: '/article/:slug',
-        component: Article,
+        component: ArticleDetails,
     },
     {
         path: '/profile/:username',
@@ -53,6 +72,8 @@ const Routes = {
     PublicAccessRoutes,
     ProtectedRoutes,
     AuthRoutes,
+    ProtectedRoute,
+    AuthRoute,
 };
 
 export default Routes;

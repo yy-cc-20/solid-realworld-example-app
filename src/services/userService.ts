@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { UpdateUserRequest, User } from '../interfaces';
-import { setUser } from '../stores/userStore';
+import { UpdateUserRequest, User } from '../types';
+import { setUser } from '../globalStates/currentUser';
 import { authHeader } from './authService';
 
 export async function updateUser(request: UpdateUserRequest) {

@@ -3,9 +3,9 @@
 import { A, useNavigate, useParams } from '@solidjs/router';
 import { createEffect, createResource, createSignal, onMount, Show, type Component } from 'solid-js';
 import { getProfile } from '../services/profileService';
-import type { ArticleFilter, Profile } from '../interfaces';
+import type { ArticleFilter, Profile } from '../types';
 import { ArticleList, FollowUnfollowButton } from '../components';
-import { user } from '../stores/userStore';
+import { user } from '../globalStates/currentUser';
 import { isAuthenticated } from '../services/authService';
 
 const Profile: Component = () => {
@@ -47,7 +47,7 @@ const Profile: Component = () => {
                                     />
                                 </Show>
                             )}
-                            <Show when={profile()?.username == user.username}>
+                            <Show when={profile()?.username === user.username}>
                                 <button class='btn btn-sm btn-outline-secondary action-btn' onClick={() => navigate('/settings')}>
                                     <i class='ion-gear-a'></i>
                                     &nbsp; Edit Profile Settings

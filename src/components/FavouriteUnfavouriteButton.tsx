@@ -1,6 +1,6 @@
 import { Show, type Component, type JSX } from 'solid-js';
 import { toggleFavoriteArticle } from '../services/articleService';
-import { Article } from '../interfaces';
+import { Article } from '../types';
 import { isAuthenticated } from '../services/authService';
 
 interface FavouriteUnfavouriteButtonProps {

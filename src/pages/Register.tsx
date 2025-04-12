@@ -2,9 +2,10 @@
 // Authentication can be easily switched to session/cookie based
 
 import { createSignal, onMount, Show, type Component } from 'solid-js';
-import { RegistrationRequest } from '../interfaces';
-import { isAuthenticated, register } from '../services/authService';
+import { RegistrationRequest } from '../types';
+import { register } from '../services/authService';
 import { useNavigate } from '@solidjs/router';
+import Routes from '../routes';
 
 const Register: Component = () => {
     const navigate = useNavigate();
@@ -18,9 +19,7 @@ const Register: Component = () => {
     const [errorMessage, setErrorMessage] = createSignal('');
 
     onMount(() => {
-        if (isAuthenticated()) {
-            navigate('/');
-        }
+        Routes.AuthRoute();
     });
 
     function handleInputChange(event: Event) {
@@ -43,7 +42,7 @@ const Register: Component = () => {
 
     function handleSubmit(event: Event) {
         event.preventDefault();
-        if (validateForm() == false) {
+        if (validateForm() === false) {
             setErrorMessage('Please fill out all fields correctly.');
             return;
         }

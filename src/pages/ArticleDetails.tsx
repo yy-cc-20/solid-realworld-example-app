@@ -9,10 +9,10 @@ import { useParams } from '@solidjs/router';
 import { createResource, type Component } from 'solid-js';
 import { getArticleDetail } from '../services/articleService';
 import { getCommentsFromAnArticle } from '../services/commentService';
-import type { Article, CommentList as CommentListType } from '../interfaces';
+import type { Article, CommentList as CommentListType } from '../types';
 import { ArticleContent, ArticleActionButtons, CommentList, CreateCommentForm } from '../components';
 
-const Article: Component = () => {
+const ArticleDetails: Component = () => {
     const params = useParams();
     console.log('params', params);
     const [article, { refetch: refetchArticle }] = createResource<Article>(() => getArticleDetail(params.slug));
@@ -41,7 +41,11 @@ const Article: Component = () => {
                     <div class='row'>
                         <div class='col-xs-12 col-md-8 offset-md-2'>
                             <CreateCommentForm onCreate={refetchComments} slug={params.slug} />
-                            {comments.loading ? <div>Loading...</div> : <CommentList onDelete={refetchComments} slug={params.slug} comments={comments()!} />}
+                            {comments.loading ? (
+                                <div>Loading...</div>
+                            ) : (
+                                <CommentList onDelete={refetchComments} slug={params.slug} comments={comments()!} />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -50,4 +54,4 @@ const Article: Component = () => {
     );
 };
 
-export default Article;
+export default ArticleDetails;
